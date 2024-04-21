@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentCourseCore.Models;
-//using StudentCourseCore.Models;
 using StudentCourseData.Dapper.StudentRepo;
 using StudentCourseWebApi.Services.StudentService;
 
 namespace StudentCourseWebApi.Controllers
 {
     [Route("api/")]
+    [Authorize]
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -22,6 +23,7 @@ namespace StudentCourseWebApi.Controllers
         /// Get all students
         /// </summary>
         /// <returns></returns>
+        
         [HttpGet("students")]
         public async Task<IEnumerable<Student>> GetStudents()
         {
@@ -45,6 +47,12 @@ namespace StudentCourseWebApi.Controllers
             return student;
             
         }
+
+        /// <summary>
+        /// Add new student
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
         [HttpPost("addstudent")]
         public async Task<ActionResult> AddStudent([FromBody] Student student)
         {
@@ -65,6 +73,12 @@ namespace StudentCourseWebApi.Controllers
                 return StatusCode(500, "An error occurred while adding the student."); // Internal Server Error (500)
             }
         }
+
+        /// <summary>
+        /// Get student by id
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
         [HttpPut("/student/{studentId}")]
         public async Task<IActionResult> UpdateStudent([FromBody] Student student)
         {
@@ -84,6 +98,12 @@ namespace StudentCourseWebApi.Controllers
                 return StatusCode(500, "An error occurred while updating the product.");
             }
         }
+
+        /// <summary>
+        /// Delete studen by id
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
         [HttpDelete("/student/{studentId}")]
         public async Task<IActionResult> DeleteStudentById(int studentId)
         {

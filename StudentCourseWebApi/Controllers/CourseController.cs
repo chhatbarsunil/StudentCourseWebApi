@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentCourseCore.Models;
 using StudentCourseWebApi.Services.CourseService;
@@ -6,6 +7,7 @@ using StudentCourseWebApi.Services.CourseService;
 namespace StudentCourseWebApi.Controllers
 {
     [Route("api/")]
+    [Authorize]
     [ApiController]
     public class CourseController : ControllerBase
     {
